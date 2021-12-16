@@ -34,7 +34,7 @@ const AppContainer = () => {
   if (isLoading) {
     return (
       <Helmet>
-        <title>読込中 - CAwitter</title>
+        <title>.読込中 - CAwitter</title>
       </Helmet>
     );
   }
