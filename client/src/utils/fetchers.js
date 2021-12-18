@@ -6,7 +6,7 @@ import { gzip } from 'pako';
  */
 async function fetchBinary(url) {
   const result = await fetch(url);
-  return result.arrayBuffer();
+  return result.ok ? result.arrayBuffer() : Promise.reject();
 }
 
 /**
@@ -16,7 +16,7 @@ async function fetchBinary(url) {
  */
 async function fetchJSON(url) {
   const result = await fetch(url);
-  return result.json();
+  return result.ok ? result.json() : Promise.reject();
 }
 
 /**
@@ -33,7 +33,7 @@ async function sendFile(url, file) {
     },
     body: file,
   });
-  return result.json();
+  return result.ok ? result.json() : Promise.reject();
 }
 
 /**
@@ -55,7 +55,7 @@ async function sendJSON(url, data) {
     },
     body: compressed,
   });
-  return result.json();
+  return result.ok ? result.json() : Promise.reject();
 }
 
 export { fetchBinary, fetchJSON, sendFile, sendJSON };
