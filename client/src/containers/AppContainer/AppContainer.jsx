@@ -5,13 +5,15 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import { AppPage } from '../../components/application/AppPage';
 import { useFetch } from '../../hooks/use_fetch';
 import { fetchJSON } from '../../utils/fetchers';
-import { AuthModalContainer } from '../AuthModalContainer';
-import { NewPostModalContainer } from '../NewPostModalContainer';
-import { NotFoundContainer } from '../NotFoundContainer';
-import { PostContainer } from '../PostContainer';
-import { TermContainer } from '../TermContainer';
-import { TimelineContainer } from '../TimelineContainer';
-import { UserProfileContainer } from '../UserProfileContainer';
+import loadable from '@loadable/component'
+
+const AuthModalContainer = loadable(() => import('./AuthModalContainer'))
+const NewPostModalContainer = loadable(() => import('./NewPostModalContainer'))
+const NotFoundContainer = loadable(() => import('./NotFoundContainer'))
+const PostContainer = loadable(() => import('./PostContainer'))
+const TermContainer = loadable(() => import('./TermContainer'))
+const TimelineContainer = loadable(() => import('./TimelineContainer'))
+const UserProfileContainer = loadable(() => import('./UserProfileContainer'))
 
 /** @type {React.VFC} */
 const AppContainer = () => {
