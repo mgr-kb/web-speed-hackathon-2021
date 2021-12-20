@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { createFFmpeg, fetchFile } = require('@ffmpeg/ffmpeg');
+const { createFFmpeg } = require('@ffmpeg/ffmpeg');
 
 const ffmpeg = createFFmpeg({ log: true });
 
