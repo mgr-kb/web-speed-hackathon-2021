@@ -70,7 +70,7 @@ const TimelineItem = ({ post }) => {
             </Link>
             <span className="pr-1 text-gray-500">-</span>
             <Link className="pr-1 text-gray-500 hover:underline" to={`/posts/${post.id}`}>
-              <time dateTime={dayjs(comment.createdAt).toISOString()}>
+              <time dateTime={dayjs(post.createdAt).toISOString()}>
                 {dayjs(post.createdAt).locale('ja').format('YYYY年M月D日')}
               </time>
             </Link>
