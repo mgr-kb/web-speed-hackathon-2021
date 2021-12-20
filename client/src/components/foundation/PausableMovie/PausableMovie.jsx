@@ -67,6 +67,7 @@ const PausableMovie = ({ src }) => {
           disablePictureInPicture
           muted
           loop
+          autoPlay={isPlaying}
           preload="metadata"
           playsInline>
         </video>
