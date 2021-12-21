@@ -14,22 +14,35 @@ async function calculate(data) {
     audioCtx.decodeAudioData(data.slice(0), resolve, reject);
   });
   // 左の音声データの絶対値を取る
-  const leftData = _.map(buffer.getChannelData(0), Math.abs);
   // const leftData = buffer.getChannelData(0).map(x => Math.abs(x));
-  // console.log('leftData: ', leftData)
+  const leftData = _.map(buffer.getChannelData(0), Math.abs);
+  console.log('leftData: ', leftData)
   // 右の音声データの絶対値を取る
-  const rightData = _.map(buffer.getChannelData(1), Math.abs);
   // const rightData = buffer.getChannelData(1).map(x => Math.abs(x));
-  // console.log('rightData: ', rightData)
+  const rightData = _.map(buffer.getChannelData(1), Math.abs)
+  console.log('rightData: ', rightData)
 
   // 左右の音声データの平均を取る
   const normalized = _.map(_.zip(leftData, rightData), _.mean);
+  // const zip = (arr, ...args) =>
+  //   arr.map((item, idx) => [item, ...args.map(arr => arr[idx])])
+  // const normalized = zip(leftData, rightData)
+  //   .map(item => item.reduce((pre, cur) => pre + cur) / item.length)
   // 100 個の chunk に分ける
+  // const chunk = (arr, cache = []) => {
+  //   const tmp = [...arr]
+  //   const chunkSize = Math.ceil(normalized.length / 100)
+  //   while (tmp.length) cache.push(tmp.splice(0, chunkSize))
+  //   return cache
+  // }
+  // const chunks = chunk(normalized);
   const chunks = _.chunk(normalized, Math.ceil(normalized.length / 100));
   // chunk ごとに平均を取る
   const peaks = _.map(chunks, _.mean);
+  // const peaks = chunks.map(chunk => chunk.reduce((pre, cur) => pre + cur) / chunk.length);
   // chunk の平均の中から最大値を取る
   const max = _.max(peaks);
+  // const max = peaks.reduce((a, b) => Math.max(a, b));
 
   return { max, peaks };
 }
