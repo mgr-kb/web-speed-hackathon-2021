@@ -16,11 +16,9 @@ async function calculate(data) {
   // 左の音声データの絶対値を取る
   // const leftData = buffer.getChannelData(0).map(x => Math.abs(x));
   const leftData = _.map(buffer.getChannelData(0), Math.abs);
-  console.log('leftData: ', leftData)
   // 右の音声データの絶対値を取る
   // const rightData = buffer.getChannelData(1).map(x => Math.abs(x));
   const rightData = _.map(buffer.getChannelData(1), Math.abs)
-  console.log('rightData: ', rightData)
 
   // 左右の音声データの平均を取る
   const normalized = _.map(_.zip(leftData, rightData), _.mean);
