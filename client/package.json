@@ -13,7 +13,6 @@
     "@loadable/component": "^5.15.2",
     "buffer": "6.0.3",
     "classnames": "2.3.1",
-    "core-js": "3.19.1",
     "dayjs": "^1.10.7",
     "fast-average-color": "7.0.1",
     "lodash.chunk": "^4.2.0",
@@ -24,7 +23,6 @@
     "react-dom": "17.0.2",
     "react-helmet": "6.1.0",
     "react-router-dom": "6.0.2",
-    "regenerator-runtime": "0.13.9",
     "standardized-audio-context": "25.3.15",
     "tailwindcss": "2.2.19",
     "wicg-inert": "3.1.1"
@@ -62,9 +60,6 @@
   "typesync": {
     "ignoreDeps": [
       "dev"
-    ],
-    "ignorePackages": [
-      "core-js"
     ]
   }
 }
