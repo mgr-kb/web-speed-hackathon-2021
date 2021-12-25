@@ -47,6 +47,7 @@ const CoveredImage = ({ alt, src }) => {
           'w-full h-auto': containerRatio <= imageRatio,
         })}
         src={src}
+        loading="lazy"
       />
     </div>
   );
