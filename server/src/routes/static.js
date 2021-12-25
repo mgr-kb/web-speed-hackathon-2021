@@ -14,6 +14,7 @@ router.use(
     etag: true,
     lastModified: true,
     maxAge: 3600 * 1000,
+    immutable: true,
   }),
 );
 
@@ -22,6 +23,7 @@ router.use(
     etag: true,
     lastModified: true,
     maxAge: 3600 * 1000,
+    immutable: true,
   }),
 );
 
@@ -30,6 +32,7 @@ router.use(
     etag: true,
     lastModified: true,
     maxAge: 3600 * 1000,
+    immutable: true,
   }),
 );
 
