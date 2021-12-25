@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 
 /**
@@ -19,23 +18,21 @@ async function calculate(data) {
   const rightData = buffer.getChannelData(1).map(x => Math.abs(x));
 
   // 左右の音声データの平均を取る
-  const normalized = _.zip(leftData, rightData).map(x => _.mean(x));
-  // const zip = (arr, ...args) =>
-  //   arr.map((item, idx) => [item, ...args.map(arr => arr[idx])])
-  // const normalized = zip(leftData, rightData)
-  //   .map(item => item.reduce((pre, cur) => pre + cur) / item.length)
+  const zip = (arr, ...args) =>
+    arr.map((item, idx) => [item, ...args.map(arr => arr[idx])])
+  const normalized = zip(leftData, rightData)
+    .map(item => item.reduce((pre, cur) => pre + cur) / item.length)
+
   // 100 個の chunk に分ける
-  // const chunk = (arr, cache = []) => {
-  //   const tmp = [...arr]
-  //   const chunkSize = Math.ceil(normalized.length / 100)
-  //   while (tmp.length) cache.push(tmp.splice(0, chunkSize))
-  //   return cache
-  // }
-  // const chunks = chunk(normalized);
-  const chunks = _.chunk(normalized, Math.ceil(normalized.length / 100));
+  const chunk = (arr, chunkSize = 1, cache = []) => {
+    const tmp = [...arr]
+    if (chunkSize <= 0) return cache
+    while (tmp.length) cache.push(tmp.splice(0, chunkSize))
+    return cache
+  }
+  const chunks = chunk(normalized, Math.ceil(normalized.length / 100));
   // chunk ごとに平均を取る
-  const peaks = chunks.map(x => _.mean(x));
-  // const peaks = chunks.map(chunk => chunk.reduce((pre, cur) => pre + cur) / chunk.length);
+  const peaks = chunks.map(chunk => chunk.reduce((pre, cur) => pre + cur) / chunk.length);
   // chunk の平均の中から最大値を取る
   const max = peaks.reduce((a, b) => Math.max(a, b));
 
