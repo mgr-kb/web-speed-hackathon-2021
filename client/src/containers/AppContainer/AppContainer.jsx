@@ -5,7 +5,6 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import { AppPage } from '../../components/application/AppPage';
 import { useFetch } from '../../hooks/use_fetch';
 import { fetchJSON } from '../../utils/fetchers';
-import loadable from '@loadable/component'
 
 const AuthModalContainer = lazy(() => import('../AuthModalContainer'))
 const NewPostModalContainer = lazy(() => import('../NewPostModalContainer'))
