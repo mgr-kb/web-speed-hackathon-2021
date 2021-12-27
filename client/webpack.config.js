@@ -49,7 +49,7 @@ const config = {
     ],
   },
   output: {
-    filename: 'scripts/[name].[contenthash].js',
+    filename: 'scripts/[name].js',
     path: DIST_PATH,
   },
   plugins: [
@@ -64,7 +64,7 @@ const config = {
       NODE_ENV: 'production',
     }),
     new MiniCssExtractPlugin({
-      filename: 'styles/[name].[contenthash].css',
+      filename: 'styles/[name].css',
     }),
     new HtmlWebpackPlugin({
       inject: false,
