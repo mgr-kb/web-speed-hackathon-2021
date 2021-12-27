@@ -2,7 +2,9 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
 const webpack = require('webpack');
+const zlib = require("zlib");
 
 const SRC_PATH = path.resolve(__dirname, './src');
 const PUBLIC_PATH = path.resolve(__dirname, '../public');
@@ -47,7 +49,7 @@ const config = {
     ],
   },
   output: {
-    filename: 'scripts/[name].js',
+    filename: 'scripts/[name].[contenthash].js',
     path: DIST_PATH,
   },
   plugins: [
@@ -62,11 +64,24 @@ const config = {
       NODE_ENV: 'production',
     }),
     new MiniCssExtractPlugin({
-      filename: 'styles/[name].css',
+      filename: 'styles/[name].[contenthash].css',
     }),
     new HtmlWebpackPlugin({
       inject: false,
       template: path.resolve(SRC_PATH, './index.html'),
+    }),
+    new CompressionPlugin({
+      filename: "[path][base].br",
+      algorithm: "brotliCompress",
+      test: /\.(js|css|html|svg)$/,
+      compressionOptions: {
+        params: {
+          [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+        },
+      },
+      threshold: 5120,
+      minRatio: 0.8,
+      deleteOriginalAssets: false,
     }),
   ],
   resolve: {
