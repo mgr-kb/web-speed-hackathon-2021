@@ -18,17 +18,17 @@ async function calculate(data) {
   const rightData = buffer.getChannelData(1).map(x => Math.abs(x));
 
   // 左右の音声データの平均を取る
-  const zip = (arr, ...args) =>
-    arr.map((item, idx) => [item, ...args.map(arr => arr[idx])])
-  const normalized = zip(leftData, rightData)
-    .map(item => item.reduce((pre, cur) => pre + cur) / item.length)
+  const normalized = leftData.map((data, idx) => {
+    return (data + rightData[idx] || 0) / 2;
+  })
 
   // 100 個の chunk に分ける
-  const chunk = (arr, chunkSize = 1, cache = []) => {
-    const tmp = [...arr]
-    if (chunkSize <= 0) return cache
-    while (tmp.length) cache.push(tmp.splice(0, chunkSize))
-    return cache
+  const chunk = (arr, chunkSize = 1) => {
+    const result = [];
+    for (let i = 0; i < arr.length; i += chunkSize) {
+      result.push(arr.slice(i, i + chunkSize));
+    }
+    return result;
   }
   const chunks = chunk(normalized, Math.ceil(normalized.length / 100));
   // chunk ごとに平均を取る

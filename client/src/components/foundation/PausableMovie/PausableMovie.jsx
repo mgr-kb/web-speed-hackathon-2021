@@ -18,36 +18,16 @@ import { FontAwesomeIcon } from '../FontAwesomeIcon';
 const PausableMovie = ({ src }) => {
   const { data, isLoading } = useFetch(src, fetchBinary);
 
-  const animatorRef = React.useRef(null);
-  const videoCallbackRef = React.useCallback(
-    (el) => {
-      animatorRef.current?.pause();
+  const videoCallbackRef = React.useRef(null);
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      if (el === null || data === null) {
-        return;
-      }
-
-      // 視覚効果 off のとき自動再生しない
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        setIsPlaying(false);
-        el.pause();
-      } else {
-        setIsPlaying(true);
-        el.play();
-      }
-
-      animatorRef.current = el;
-    },
-    [data],
-  );
-
-  const [isPlaying, setIsPlaying] = React.useState(true);
+  const [isPlaying, setIsPlaying] = React.useState(!prefersReducedMotion);
   const handleClick = React.useCallback(() => {
     setIsPlaying((isPlaying) => {
       if (isPlaying) {
-        animatorRef.current?.pause();
+        videoCallbackRef.current?.pause();
       } else {
-        animatorRef.current?.play();
+        videoCallbackRef.current?.play();
       }
       return !isPlaying;
     });
@@ -62,15 +42,12 @@ const PausableMovie = ({ src }) => {
     <AspectRatioBox aspectHeight={1} aspectWidth={1}>
       <button className="group relative block w-full h-full" onClick={handleClick} type="button">
         <video
-          ref={videoCallbackRef}
           src={src}
-          disablePictureInPicture
+          ref={videoCallbackRef}
           muted
           loop
-          autoPlay={isPlaying}
-          preload="metadata"
-          playsInline>
-        </video>
+          autoPlay={!prefersReducedMotion}
+        />
         <div
           className={classNames(
             'absolute left-1/2 top-1/2 flex items-center justify-center w-16 h-16 text-white text-3xl bg-black bg-opacity-50 rounded-full transform -translate-x-1/2 -translate-y-1/2',

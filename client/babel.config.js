@@ -3,9 +3,7 @@ module.exports = {
     [
       '@babel/preset-env',
       {
-        corejs: '3',
         modules: false,
-        useBuiltIns: 'usage',
         targets: 'last 1 Chrome major version',
       },
     ],
@@ -13,7 +11,6 @@ module.exports = {
       '@babel/preset-react',
       {
         development: process.env.BABEL_ENV === "development",
-        useSpread: true,
       },
     ],
   ],

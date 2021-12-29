@@ -11,6 +11,8 @@ const PUBLIC_PATH = path.resolve(__dirname, '../public');
 const UPLOAD_PATH = path.resolve(__dirname, '../upload');
 const DIST_PATH = path.resolve(__dirname, '../dist');
 
+const IS_PROD = process.env.NODE_ENV === 'production';
+
 /** @type {import('webpack').Configuration} */
 const config = {
   devServer: {
@@ -22,7 +24,7 @@ const config = {
     },
     static: [PUBLIC_PATH, UPLOAD_PATH],
   },
-  devtool: process.env.NODE_ENV === 'production' ? false : 'inline-source-map',
+  devtool: !IS_PROD && 'inline-source-map',
   entry: {
     main: [
       path.resolve(SRC_PATH, './index.css'),
@@ -49,8 +51,9 @@ const config = {
     ],
   },
   output: {
-    filename: 'scripts/[name].js',
+    filename: 'scripts/[name]-[fullhash].js',
     path: DIST_PATH,
+    publicPath: '/',
   },
   plugins: [
     new webpack.ProvidePlugin({
@@ -64,10 +67,10 @@ const config = {
       NODE_ENV: 'production',
     }),
     new MiniCssExtractPlugin({
-      filename: 'styles/[name].css',
+      filename: 'styles/[name]-[fullhash].css',
     }),
     new HtmlWebpackPlugin({
-      inject: false,
+      inject: true,
       template: path.resolve(SRC_PATH, './index.html'),
     }),
     new CompressionPlugin({
