@@ -1,12 +1,17 @@
 import { gzip } from 'pako';
 
+const fetchError = result =>
+  new Error(
+    `HttpStatus=${result.status || 500}:
+    message=${result.statusText || 'Internal Server Error'}`);
+
 /**
  * @param {string} url
  * @returns {Promise<ArrayBuffer>}
  */
 async function fetchBinary(url) {
   const result = await fetch(url);
-  return result.ok ? result.arrayBuffer() : Promise.reject();
+  return result.ok ? result.arrayBuffer() : Promise.reject(fetchError(result));
 }
 
 /**
@@ -16,7 +21,7 @@ async function fetchBinary(url) {
  */
 async function fetchJSON(url) {
   const result = await fetch(url);
-  return result.ok ? result.json() : Promise.reject();
+  return result.ok ? result.json() : Promise.reject(fetchError(result));
 }
 
 /**
@@ -33,7 +38,7 @@ async function sendFile(url, file) {
     },
     body: file,
   });
-  return result.ok ? result.json() : Promise.reject();
+  return result.ok ? result.json() : Promise.reject(fetchError(result));
 }
 
 /**
@@ -55,7 +60,7 @@ async function sendJSON(url, data) {
     },
     body: compressed,
   });
-  return result.ok ? result.json() : Promise.reject();
+  return result.ok ? result.json() : Promise.reject(fetchError(result));
 }
 
 export { fetchBinary, fetchJSON, sendFile, sendJSON };
