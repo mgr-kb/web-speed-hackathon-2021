@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { ModalErrorMessage } from '../../modal/ModalErrorMessage';
@@ -25,9 +25,9 @@ import { AuthInput } from '../AuthInput';
 /** @type {React.VFC<Props>} */
 const AuthModalPage = ({ hasError, isLoading, onRequestCloseModal, onResetError, onSubmit }) => {
   /** @type {[SubmitParams, (params: SubmitParams) => SubmitParams]} */
-  const [params, setParams] = useState({ name: '', password: '', type: 'signin', username: '' });
+  const [params, setParams] = React.useState({ name: '', password: '', type: 'signin', username: '' });
 
-  const handleToggleType = useCallback(() => {
+  const handleToggleType = React.useCallback(() => {
     onResetError();
     setParams((params) => ({
       ...params,
@@ -36,7 +36,7 @@ const AuthModalPage = ({ hasError, isLoading, onRequestCloseModal, onResetError,
   }, [onResetError]);
 
   /** @type {React.ChangeEventHandler<HTMLInputElement>} */
-  const handleChangeUsername = useCallback((ev) => {
+  const handleChangeUsername = React.useCallback((ev) => {
     const value = ev.currentTarget.value;
     setParams((params) => ({
       ...params,
@@ -45,7 +45,7 @@ const AuthModalPage = ({ hasError, isLoading, onRequestCloseModal, onResetError,
   }, []);
 
   /** @type {React.ChangeEventHandler<HTMLInputElement>} */
-  const handleChangeName = useCallback((ev) => {
+  const handleChangeName = React.useCallback((ev) => {
     const value = ev.currentTarget.value;
     setParams((params) => ({
       ...params,
@@ -54,7 +54,7 @@ const AuthModalPage = ({ hasError, isLoading, onRequestCloseModal, onResetError,
   }, []);
 
   /** @type {React.ChangeEventHandler<HTMLInputElement>} */
-  const handleChangePassword = useCallback((ev) => {
+  const handleChangePassword = React.useCallback((ev) => {
     const value = ev.currentTarget.value;
     setParams((params) => ({
       ...params,
@@ -63,7 +63,7 @@ const AuthModalPage = ({ hasError, isLoading, onRequestCloseModal, onResetError,
   }, []);
 
   /** @type {React.FormEventHandler<HTMLFormElement>} */
-  const handleSubmit = useCallback(
+  const handleSubmit = React.useCallback(
     (ev) => {
       ev.preventDefault();
       onResetError();

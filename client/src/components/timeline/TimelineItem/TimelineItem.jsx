@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { getProfileImagePath } from '../../../utils/get_path';
@@ -39,7 +39,7 @@ const TimelineItem = ({ post }) => {
    * ボタンやリンク以外の箇所をクリックしたとき かつ 文字が選択されてないとき、投稿詳細ページに遷移する
    * @type {React.MouseEventHandler}
    */
-  const handleClick = useCallback(
+  const handleClick = React.useCallback(
     (ev) => {
       const isSelectedText = document.getSelection().isCollapsed === false;
       if (!isClickedAnchorOrButton(ev.target, ev.currentTarget) && !isSelectedText) {

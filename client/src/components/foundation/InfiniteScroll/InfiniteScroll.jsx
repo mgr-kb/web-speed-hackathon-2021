@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 
 /**
  * @typedef {object} Props
@@ -11,9 +11,9 @@ import React, { useRef, useEffect } from 'react';
 const InfiniteScroll = ({ children, fetchMore, items }) => {
   const latestItem = items[items.length - 1];
 
-  const prevReachedRef = useRef(false);
+  const prevReachedRef = React.useRef(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const handler = () => {
       // 念の為 2の18乗 回、最下部かどうかを確認する
       const hasReached =  window.innerHeight + Math.ceil(window.scrollY) >= document.body.offsetHeight;

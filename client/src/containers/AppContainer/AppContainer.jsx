@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect, useState, useCallback } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
 import { AppPage } from '../../components/application/AppPage';
@@ -16,20 +16,20 @@ const UserProfileContainer = lazy(() => import('../UserProfileContainer'))
 /** @type {React.VFC} */
 const AppContainer = () => {
   const { pathname } = useLocation();
-  useEffect(() => {
+  React.useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  const [activeUser, setActiveUser] = useState(null);
+  const [activeUser, setActiveUser] = React.useState(null);
   const { data } = useFetch('/api/v1/me', fetchJSON);
-  useEffect(() => {
+  React.useEffect(() => {
     setActiveUser(data);
   }, [data]);
 
-  const [modalType, setModalType] = useState('none');
-  const handleRequestOpenAuthModal = useCallback(() => setModalType('auth'), []);
-  const handleRequestOpenPostModal = useCallback(() => setModalType('post'), []);
-  const handleRequestCloseModal = useCallback(() => setModalType('none'), []);
+  const [modalType, setModalType] = React.useState('none');
+  const handleRequestOpenAuthModal = React.useCallback(() => setModalType('auth'), []);
+  const handleRequestOpenPostModal = React.useCallback(() => setModalType('post'), []);
+  const handleRequestCloseModal = React.useCallback(() => setModalType('none'), []);
 
   return (
     <>

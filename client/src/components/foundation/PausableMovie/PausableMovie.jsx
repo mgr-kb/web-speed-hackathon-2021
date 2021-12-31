@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useRef, useState, useCallback } from 'react';
+import React from 'react';
 
 import { useFetch } from '../../../hooks/use_fetch';
 import { fetchBinary } from '../../../utils/fetchers';
@@ -18,11 +18,11 @@ import { FontAwesomeIcon } from '../FontAwesomeIcon';
 const PausableMovie = ({ src }) => {
   const { data, isLoading } = useFetch(src, fetchBinary);
 
-  const videoCallbackRef = useRef(null);
+  const videoCallbackRef = React.useRef(null);
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const [isPlaying, setIsPlaying] = useState(!prefersReducedMotion);
-  const handleClick = useCallback(() => {
+  const [isPlaying, setIsPlaying] = React.useState(!prefersReducedMotion);
+  const handleClick = React.useCallback(() => {
     setIsPlaying((isPlaying) => {
       if (isPlaying) {
         videoCallbackRef.current?.pause();

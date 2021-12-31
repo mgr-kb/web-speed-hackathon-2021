@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { TermPage } from '../../components/term/TermPage';
 
 /** @type {React.VFC} */
 const TermContainer = () => {
-  useEffect(() => {
+  React.useEffect(() => {
     document.title = '利用規約 - CAwitter'
   }, []);
   return <TermPage />

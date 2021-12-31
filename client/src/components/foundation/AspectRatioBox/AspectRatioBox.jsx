@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React from 'react';
 
 /**
  * @typedef {object} Props
@@ -13,10 +13,10 @@ import React, { useRef, useState, useEffect } from 'react';
  */
 const AspectRatioBox = ({ aspectHeight, aspectWidth, children }) => {
   /** @type {React.RefObject<HTMLDivElement>} */
-  const ref = useRef(null);
-  const [clientHeight, setClientHeight] = useState(0);
+  const ref = React.useRef(null);
+  const [clientHeight, setClientHeight] = React.useState(0);
 
-  useEffect(() => {
+  React.useEffect(() => {
     // clientWidth とアスペクト比から clientHeight を計算する
     function calcStyle() {
       const clientWidth = ref.current.clientWidth;

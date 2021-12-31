@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 
 import { AuthModalPage } from '../../components/auth_modal/AuthModalPage';
 import { Modal } from '../../components/modal/Modal';
@@ -12,14 +12,14 @@ import { sendJSON } from '../../utils/fetchers';
 
 /** @type {React.VFC<Props>} */
 const AuthModalContainer = ({ onRequestCloseModal, onUpdateActiveUser }) => {
-  const [hasError, setHasError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
-  const handleResetError = useCallback(() => {
+  const handleResetError = React.useCallback(() => {
     setHasError(false);
   }, []);
 
-  const handleSubmit = useCallback(
+  const handleSubmit = React.useCallback(
     async ({ type, ...params }) => {
       try {
         setIsLoading(true);
