@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 /**
  * @typedef {object} Props
@@ -12,9 +12,9 @@ import React from 'react';
  * @type {React.VFC<Props>}
  */
 const CoveredImage = ({ alt, src }) => {
-  const [imageSize, setImageSize] = React.useState(null)
+  const [imageSize, setImageSize] = useState(null)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const img = new Image()
     img.onload = function () {
       setImageSize({ width: this.width, height: this.height })
@@ -22,9 +22,9 @@ const CoveredImage = ({ alt, src }) => {
     img.src = src
   }, [src, setImageSize]);
 
-  const [containerSize, setContainerSize] = React.useState({ height: 0, width: 0 });
+  const [containerSize, setContainerSize] = useState({ height: 0, width: 0 });
   /** @type {React.RefCallback<HTMLDivElement>} */
-  const callbackRef = React.useCallback((el) => {
+  const callbackRef = useCallback((el) => {
     setContainerSize({
       height: el?.clientHeight ?? 0,
       width: el?.clientWidth ?? 0,

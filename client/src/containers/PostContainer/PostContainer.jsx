@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { InfiniteScroll } from '../../components/foundation/InfiniteScroll';
@@ -16,7 +16,7 @@ const PostContainer = () => {
 
   const { data: comments, fetchMore } = useInfiniteFetch(`/api/v1/posts/${postId}/comments`, fetchJSON);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isLoadingPost) {
       document.title = '読込中 - CAwitter'
     } else if (post !== null) {

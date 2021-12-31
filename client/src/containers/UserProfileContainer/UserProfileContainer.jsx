@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { InfiniteScroll } from '../../components/foundation/InfiniteScroll';
@@ -15,7 +15,7 @@ const UserProfileContainer = () => {
   const { data: user, isLoading: isLoadingUser } = useFetch(`/api/v1/users/${username}`, fetchJSON);
   const { data: posts, fetchMore } = useInfiniteFetch(`/api/v1/users/${username}/posts`, fetchJSON);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isLoadingUser) {
       document.title = '読込中 - CAwitter'
     } else if (user !== null) {
