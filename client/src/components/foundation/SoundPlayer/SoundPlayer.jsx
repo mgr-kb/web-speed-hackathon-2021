@@ -1,11 +1,8 @@
 import React from 'react';
 
-import { useFetch } from '../../../hooks/use_fetch';
-import { fetchBinary } from '../../../utils/fetchers';
-import { getSoundPath } from '../../../utils/get_path';
+import { getSoundPath, getSoundWavePath } from '../../../utils/get_path';
 import { AspectRatioBox } from '../AspectRatioBox';
 import { FontAwesomeIcon } from '../FontAwesomeIcon';
-import { SoundWaveSVG } from '../SoundWaveSVG';
 
 /**
  * @typedef {object} Props
@@ -16,8 +13,6 @@ import { SoundWaveSVG } from '../SoundWaveSVG';
  * @type {React.VFC<Props>}
  */
 const SoundPlayer = ({ sound }) => {
-  const { data, isLoading } = useFetch(getSoundPath(sound.id), fetchBinary);
-
   const [currentTimeRatio, setCurrentTimeRatio] = React.useState(0);
   /** @type {React.ReactEventHandler<HTMLAudioElement>} */
   const handleTimeUpdate = React.useCallback((ev) => {
@@ -39,10 +34,6 @@ const SoundPlayer = ({ sound }) => {
     });
   }, []);
 
-  if (isLoading || data === null) {
-    return null;
-  }
-
   return (
     <div className="flex items-center justify-center w-full h-full bg-gray-300">
       <audio ref={audioRef} loop={true} onTimeUpdate={handleTimeUpdate} src={getSoundPath(sound.id)} preload="none" />
@@ -62,7 +53,7 @@ const SoundPlayer = ({ sound }) => {
           <AspectRatioBox aspectHeight={1} aspectWidth={10}>
             <div className="relative w-full h-full">
               <div className="absolute inset-0 w-full h-full">
-                <SoundWaveSVG soundData={data} />
+                <img className="w-full h-full" src={getSoundWavePath(sound.id)} loading="lazy" />
               </div>
               <div
                 className="absolute inset-0 w-full h-full bg-gray-300 opacity-75"
