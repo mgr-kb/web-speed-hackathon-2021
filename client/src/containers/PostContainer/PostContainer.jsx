@@ -22,7 +22,7 @@ const PostContainer = () => {
     } else if (post !== null) {
       document.title = `${post.user.name} さんのつぶやき - CAwitter`
     }
-  }, []);
+  }, [isLoadingPost, post]);
 
   if (post === null) {
     return <NotFoundContainer />;
