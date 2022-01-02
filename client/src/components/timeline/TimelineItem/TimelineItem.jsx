@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { getProfileImagePath } from '../../../utils/get_path';
@@ -49,6 +49,8 @@ const TimelineItem = ({ post }) => {
     [post, navigate],
   );
 
+  const createdAtByPost = useMemo(() => dayjs(post.createdAt), [post.createdAt]);
+
   return (
     <article className="px-1 hover:bg-gray-50 sm:px-4" onClick={handleClick}>
       <div className="flex pb-4 pt-2 px-2 border-b border-gray-300 sm:px-4">
@@ -70,8 +72,8 @@ const TimelineItem = ({ post }) => {
             </Link>
             <span className="pr-1 text-gray-500">-</span>
             <Link className="pr-1 text-gray-500 hover:underline" to={`/posts/${post.id}`}>
-              <time dateTime={dayjs(post.createdAt).toISOString()}>
-                {dayjs(post.createdAt).locale('ja').format('YYYY年M月D日')}
+              <time dateTime={createdAtByPost.toISOString()}>
+                {createdAtByPost.locale('ja').format('YYYY年M月D日')}
               </time>
             </Link>
           </p>

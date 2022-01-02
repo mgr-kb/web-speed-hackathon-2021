@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getProfileImagePath } from '../../../utils/get_path';
@@ -14,6 +14,9 @@ import { SoundArea } from '../../post/SoundArea';
 
 /** @type {React.VFC<Props>} */
 const PostItem = ({ post }) => {
+
+  const createdAtByPost = useMemo(() => dayjs(post.createdAt), [post.createdAt]);
+
   return (
     <article className="px-1 sm:px-4">
       <div className="pb-4 pt-4 px-4 border-b border-gray-300">
@@ -58,8 +61,8 @@ const PostItem = ({ post }) => {
           ) : null}
           <p className="mt-2 text-sm sm:mt-4">
             <Link className="text-gray-500 hover:underline" to={`/posts/${post.id}`}>
-              <time dateTime={dayjs(post.createdAt).toISOString()}>
-                {dayjs(post.createdAt).locale('ja').format('YYYY年M月D日')}
+              <time dateTime={createdAtByPost.toISOString()}>
+                {createdAtByPost.locale('ja').format('YYYY年M月D日')}
               </time>
             </Link>
           </p>

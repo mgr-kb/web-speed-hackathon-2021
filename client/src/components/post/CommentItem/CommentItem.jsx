@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getProfileImagePath } from '../../../utils/get_path';
@@ -11,6 +11,7 @@ import { getProfileImagePath } from '../../../utils/get_path';
 
 /** @type {React.VFC<Props>} */
 const CommentItem = ({ comment }) => {
+  const createdAtByComment = useMemo(() => dayjs(comment.createdAt), [comment.createdAt]);
   return (
     <article className="px-1 hover:bg-gray-50 sm:px-4">
       <div className="flex pb-4 pt-2 px-2 border-b border-gray-300 sm:px-4">
@@ -33,8 +34,8 @@ const CommentItem = ({ comment }) => {
           </p>
           <p className="text-gray-800 text-sm leading-relaxed">{comment.text}</p>
           <p className="text-gray-500 text-xs">
-            <time dateTime={dayjs(comment.createdAt).toISOString()}>
-              {dayjs(comment.createdAt).locale('ja').format('YYYY年M月D日')}
+            <time dateTime={createdAtByComment.toISOString()}>
+              {createdAtByComment.locale('ja').format('YYYY年M月D日')}
             </time>
           </p>
         </div>

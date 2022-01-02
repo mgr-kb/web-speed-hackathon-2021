@@ -1,6 +1,6 @@
 import FastAverageColor from 'fast-average-color';
 import dayjs from 'dayjs';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { getProfileImagePath } from '../../../utils/get_path';
 import { FontAwesomeIcon } from '../../foundation/FontAwesomeIcon';
@@ -23,6 +23,8 @@ const UserProfileHeader = ({ user }) => {
     fac.destroy();
   }, []);
 
+  const createdAtByUser = useMemo(() => dayjs(user.createdAt), [user.createdAt]);
+
   return (
     <header className="relative">
       <div className="h-32 bg-gray-300" style={{ backgroundColor: averageColor }}></div>
@@ -38,8 +40,8 @@ const UserProfileHeader = ({ user }) => {
             <FontAwesomeIcon iconType="calendar-alt" styleType="regular" />
           </span>
           <span>
-            <time dateTime={dayjs(user.createdAt).toISOString()}>
-              {dayjs(user.createdAt).locale('ja').format('YYYY年M月D日')}
+            <time dateTime={createdAtByUser.toISOString()}>
+              {createdAtByUser.locale('ja').format('YYYY年M月D日')}
             </time>
             からサービスを利用しています
           </span>
